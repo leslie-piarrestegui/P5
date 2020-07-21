@@ -1,0 +1,12 @@
+body {
+    min-height: 100vh;
+}
+
+footer {
+    padding-top: 3rem;
+    padding-bottom: 3rem;
+}
+
+h1 {
+    color: #18DA9C;
+}
