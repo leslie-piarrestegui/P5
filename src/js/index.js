@@ -1,57 +1,8 @@
-//************ INDEX ***********/
 let articles = [];
-
-const makeGetRequest = () => {
-    /**
-     * renvoyer une promise permet d'attendre la fin de l'execution de la requete,
-     * de resolve le resultat si tout c'est bien passer 
-     * ou de reject le code http de la reponse API
-     */
-    return new Promise((resolve, reject) => {
-        console.log('-- faire la requete');
-
-        const request = new XMLHttpRequest();
-        console.log(request);
-
-        request.onreadystatechange = function () {
-            if (this.readyState == XMLHttpRequest.DONE && this.status == 200) {
-                listArticles = JSON.parse(this.responseText);
-
-                console.log('l\'api a mis 0,5 secondes a nous repondre =>', listArticles);
-                resolve(listArticles);
-            } else if (this.status >= 400) {
-                reject(this.status);
-            }
-        };
-
-        request.open("GET", `http://localhost:3000/api/teddies`);
-        request.send();
-    });
-};
 
 /**
  * le mot cle 'async' dit a la fonction qu'elle est asynchrone.
  */
-const getArticlesFromApi = async () => {
-    /**
-     * Le bloc try catch permet d'executer une fonction asyncrone
-     * avec le mot cle await, et d'intercepter les erreurs.
-     */
-    try {
-        console.log('- demamder les articles a l\'API');
-        /**
-         * le mot cle 'await' permet de faire apel à une fonction asyncrone et attendre le resultat.
-         */
-        return await makeGetRequest();
-    } catch (err) {
-        /**
-         * si la fonction asyncrone reject une erreur, 
-         * elle sera disponible dans la variable 'err'.
-         */
-        console.error(err);
-    }
-};
-
 const getArticles = async (article) => {
 
     /**
@@ -60,104 +11,80 @@ const getArticles = async (article) => {
      * sinon affiche une erreur dans la console.
      */
     try {
-        console.log(" 1) recuperation de la liste des articles");
-        articles = await getArticlesFromApi();
-        console.log(" 2) creer les articles");
-    } catch (err) {
-        console.log(err);
-    }
+        /**
+         * le mot cle 'await' permet de faire apel à une fonction asyncrone et attendre le resultat.
+         */
+        articles = await discuterAvecLapi(`http://localhost:3000/api/teddies`, "GET");
 
-    for (let i = 0; i < articles.length; i++) {
-        functionQuiCreeLesCartesArticle(articles[i]);
-    };
+        for (let i = 0; i < articles.length; i++) {
+            functionQuiCreeLesCartesArticle(articles[i]);
+        };
+    } catch (err) {
+        console.error(err);
+    }
 };
 
 const functionQuiCreeLesCartesArticle = (article) => {
-    console.log(articles);
+    const carteArticle = document.createElement("div");
+    carteArticle.className = 'col-lg-3 col-md-6 mb-4';
 
-    var carteArticle = document.createElement("div");
-    carteArticle.className = 'card shadow col-md-4 m-3 p-3';
+    const card = document.createElement("div");
+    card.className = 'card h-100';
 
-    var nomDeLarticle = createArticleName(article.name);
-    carteArticle.appendChild(nomDeLarticle);
+    const imageDeLarticle = createArticleImage(article);
+    card.appendChild(imageDeLarticle);
 
-    var imageDeLarticle = createArticleImage(article.imageUrl);
-    carteArticle.appendChild(imageDeLarticle);
+    const cardBody = document.createElement("div");
+    cardBody.className = 'card-body text-center';
 
-    var descriptionDeLarticle = createArticleDescription(article.description);
-    carteArticle.appendChild(descriptionDeLarticle);
+    const nomDeLarticle = document.createElement("h5");
+    const strong = document.createElement('strong');
 
-    var quantiteDeLarticle = createArticlequantite(article.quantite);
-    carteArticle.appendChild(quantiteDeLarticle);
+    const link = document.createElement("a");
+    link.href = `article.html?article=${article._id}`;
+    link.className = 'dark-grey-text';
+    const textNomArticle = document.createTextNode(article.name);
+    link.appendChild(textNomArticle);
+    strong.appendChild(link);
+    nomDeLarticle.appendChild(strong);
+    cardBody.appendChild(nomDeLarticle);
 
-    var prixDeLarticle = createArticlePrice(article.price);
-    carteArticle.appendChild(prixDeLarticle);
-
+    card.appendChild(cardBody);
+    carteArticle.appendChild(card);
 
     document.getElementById('carte').appendChild(carteArticle);
 }
 
-const createArticleName = (nomDeLarticle) => {
-    var baliseParagraphe = document.createElement("P");
-    baliseParagraphe.className = 'text-center m-0';
-    var textbaliseParagraphe = document.createTextNode(nomDeLarticle);
+const createElements = (tag, text, className) => {
+    var balise = document.createElement(tag);
+    balise.className = className;
+    var textbalise = document.createTextNode(text);
 
-    baliseParagraphe.appendChild(textbaliseParagraphe);
+    balise.appendChild(textbalise);
 
-    return baliseParagraphe;
+    return balise;
 }
 
-const createArticleDescription = (descriptionDeLarticle) => {
-    var baliseParagraphe = document.createElement("P");
-    baliseParagraphe.className = 'text-center mt-2';
-    var textbaliseParagraphe = document.createTextNode(descriptionDeLarticle);
+const createArticleImage = (article) => {
+    const img = document.createElement("div");
+    img.className = 'view overlay';
 
-    baliseParagraphe.appendChild(textbaliseParagraphe);
+    const monImage = document.createElement('img');
+    monImage.src = article.imageUrl;
+    monImage.className = 'card-img-top';
 
-    return baliseParagraphe;
-}
-const createArticlePrice = (prixDeLarticle) => {
-    var baliseParagraphe = document.createElement("P");
-    baliseParagraphe.className = 'text-center m-0';
-    var textbaliseParagraphe = document.createTextNode('Prix : ' + prixDeLarticle + '$');
+    img.appendChild(monImage);
 
-    baliseParagraphe.appendChild(textbaliseParagraphe);
+    const link = document.createElement("a");
+    link.href = `article.html?article=${article._id}`;
 
-    return baliseParagraphe;
-}
+    const mask = document.createElement("div");
+    mask.className = 'mask rgba-white-slight waves-effect waves-light';
 
-const createArticleImage = (imageDeLarticle) => {
-    var monImage = document.createElement('img');
-    monImage.src = imageDeLarticle;
-    monImage.style.width = "200px";
-    monImage.className = 'm-auto';
-    monImage.addEventListener('click', function () {
-        window.location.href = 'article.html'
-    });
-    return monImage;
-}
+    link.appendChild(mask);
+    img.appendChild(link);
 
-const createArticlequantite = (quantiteDeLarticle) => {
-    var baliseParagraphe = document.createElement("P");
-    baliseParagraphe.className = 'text-center m-0';
-    var textbaliseParagraphe = document.createTextNode('quantite de l\'article : ' + quantiteDeLarticle);
-
-    console.log(textbaliseParagraphe, quantiteDeLarticle);
-
-    if (quantiteDeLarticle == 0) {
-        baliseParagraphe.style.color = "red";
-    } else {
-        baliseParagraphe.style.color = "green";
-    }
-
-    baliseParagraphe.appendChild(textbaliseParagraphe);
-
-    return baliseParagraphe;
+    return img;
 }
 
 getArticles();
-
-//************************* FIN INDEX ********************/
-
-
-

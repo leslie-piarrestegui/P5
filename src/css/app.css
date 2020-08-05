@@ -8,5 +8,17 @@ footer {
 }
 
 h1 {
-    color: #18DA9C;
+    color: #ce93d8;
+}
+
+.header-logo {
+    width: 5rem;
+}
+
+nav {
+    background-color: #bdbdbd !important;
+}
+
+footer {
+    background-color: #bdbdbd !important;
 }

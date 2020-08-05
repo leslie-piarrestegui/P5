@@ -5,9 +5,6 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
-
-
 
     <!-- AJOUTER CES ELEMENTS SUR CHAQUE PAGE POUR UTILISER LA LIBRAIRIE -->
     <!-- Font Awesome -->
@@ -21,59 +18,61 @@
 
     <link rel="stylesheet" href="./src/css/app.css">
 
-    <title>Orinoco | Oriteddy </title>
+    <title> Oriteddy | confirmation commande </title>
 </head>
 
-<body class="pink-skin">
-    <header>
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top scrolling-navbar">
-            <a class="navbar-brand" href="index.html">
-                <img src="./src/img/logo.png" alt="logo Orinoco" class="header-logo">
-            </a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
 
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link text-white" href="#">Nous contactez</a>
-                    </li>
-                </ul>
-                <ul class="navbar-nav nav-flex-icons">
-                    <li class="nav-item">
-                        <a class="nav-link waves-effect" href="checkout-page.html">
-                            <span class="badge red z-depth-1 mr-1" id="nbArticles"></span>
-                            <i class="fas fa-shopping-cart"></i>
-                            <span class="clearfix d-none d-sm-inline-block"> Panier </span>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        </nav>
-    </header>
+<header>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top scrolling-navbar">
+        <a class="navbar-brand" href="index.html">
+            <img src="./src/img/logo.png" alt="logo Orinoco" class="header-logo">
+        </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"
+            action="checkout-page" method="get">
+            <span class="navbar-toggler-icon"></span>
+        </button>
 
-    <main role="main">
-        <section class="jumbotron text-center mt-5">
-            <div class="container">
-                <h1>Oriteddy</h1>
-                <p class="lead text-muted">Notre site vous propose une sélection d'ours en peluche tout doux, parmi les
-                    meilleurs marques qui répondent aux normes de sécurité Européennes. </p>
-            </div>
-        </section>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link text-white" href="#">Nous contactez</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+</header>
 
-        <div class="container">
-            <!--Section: Products v.3-->
-            <section class="text-center mb-4">
+<body>
+    <main role="main" class="mt-5 pt-4">
+
+        <div class="container my-5 py-5 z-depth-1">
+
+
+            <!--Section: Content-->
+            <section class="text-center px-md-5 mx-md-5">
 
                 <!--Grid row-->
-                <div class="row wow fadeIn justify-content-center" id="carte">
+                <div class="row d-flex justify-content-center">
+
+                    <!--Grid column-->
+                    <div class="col-lg-7">
+
+                        <p>Nous vous remercions pour votre commande</p>
+                        <p>
+                            Votre commande n° ************ d'un montant de **,** euros a bien été prise en compte et sera traitée dans les meilleurs délais.
+                            Vous recevrez un email de confirmation, vérifiez votre boîte mail. 
+
+                            À bientôt sur notre site <a class="text-dark" href="index.html">OriTeddy </a>
+                        </p>
+
+                    </div>
+                    <!--Grid column-->
 
                 </div>
                 <!--Grid row-->
-
             </section>
+            <!--Section: Content-->
         </div>
     </main>
 
@@ -124,6 +123,7 @@
 
     </footer>
 
+
     <!-- AJOUTER CES ELEMENTS SUR CHAQUE PAGE POUR UTILISER LA LIBRAIRIE -->
     <!-- SCRIPTS -->
     <!-- JQuery -->
@@ -136,12 +136,16 @@
     <script type="text/javascript" src="./src/js/mdb.min.js"></script>
     <!-- FIN DES ELEMENTS A AJOUTER POUR UTILISER MDB -->
 
+    <!-- <script type="text/javascript" src="./src/js/globale.js"></script> -->
     <script type="text/javascript" src="./src/js/globale.js"></script>
-    <script type="text/javascript" src="./src/js/index.js"></script>
+    <script type="text/javascript" src="./src/js/article.js"></script>
+
+    <!-- Initializations -->
     <script type="text/javascript">
         // Animations initialization
         $(document).ready(function () {
             new WOW().init();
+            $('.mdb-select').materialSelect();
         });
 
     </script>
